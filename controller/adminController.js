@@ -72,6 +72,7 @@ export const adminLogin = async (req, res, next) => {
     });
 
     res.cookie('token', token, { sameSite: "None", secure: true });
+console.log(`token====>`,token);
 
     // Send response
     return res.json({ success: true, message: "Admin login successful", status: 200, token });
@@ -82,7 +83,7 @@ export const adminLogin = async (req, res, next) => {
 //logout
 export const AdminLogout = async (req, res, next) => {
 
-  res.clearCookie("token")
+ res.clearCookie("token")
   res.json({ success: true, message: 'Admin logged out successfully' })
 
 
@@ -90,39 +91,7 @@ export const AdminLogout = async (req, res, next) => {
 
 
 
-//   export const addEmploye = async (req, res) => {
-//     try {
 
-//         const { Name, Email, Mobile, Designation, Gender, Course } = req.body;
-
-//         if (!req.file) {
-//             return res.status(400).json({ success: false, message: "Please upload an image" });
-//         }
-
-//         const uploadResult = await cloudinaryInstance.uploader.upload(req.file.path, { folder: "employee" });
-
-
-//         const newEmploye = new Employee({
-//             Name,
-//             Email,
-//             Mobile,
-//             Designation,
-//             Gender,
-//             Course,
-//             Image: uploadResult.secure_url 
-//         });
-
-//         await newEmploye.save();
-
-
-//         res.json({ success: true, message: "Employee created successfully", data: newEmploye });
-//     } catch (error) {
-
-//         console.log(error);
-
-//         res.status(error.status || 500).json({ message: error.message || "Internal server error" });
-//     }
-// };
 
 export const addEmploye = async (req, res) => {
   try {
@@ -170,6 +139,7 @@ export const getAll = async (req, res, next) => {
     res.status(error.status || 500).json({ message: error.message || "Internal server error" })
   }
 }
+
 
 
 
@@ -268,3 +238,24 @@ export const getTotalEmployee = async (req, res) => {
     res.status(500).json({ message: "Error fetching total Employee" });
   }
 };
+
+export const checkUser=async(req,res,next)=>{
+  try {
+    const user=req.admin;
+console.log(`hy===========>`,user);
+
+  if(!user){
+      return res.status(401).json({success:false,message:'user not authenticated'})
+      
+      } 
+      res.json({success:true,message:'user is authenticated'})
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+ 
+  
+
+
+ }

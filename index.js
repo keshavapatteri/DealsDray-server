@@ -1,62 +1,30 @@
 
-// import express from 'express';
-// import mongoose from 'mongoose';
-// import dotenv from 'dotenv';
-// import apiRouter from './router/index.js';
-
-
-
-
-
-
-
-
-// dotenv.config(); // Load environment variables from .env file
-
-// const app = express();
-// app.use(express.json());
-// // Middleware
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-//   credentials: true,
-// }));
-// const mongoURI = process.env.MONGO_URI; // Get the MongoDB URI from environment variables
-// const port = process.env.PORT || 4300; // Set port from environment variable or default to 4500
-
-// mongoose.connect(mongoURI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })
-// .then(() => console.log('Connected to MongoDB'))
-// .catch((err) => console.error('Error connecting to MongoDB:', err));
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
-// // // API routes
-// app.use('/api',apiRouter);
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import cors from 'cors'; // Import cors
+import cors from 'cors';
 import apiRouter from './router/index.js';
+import cookieParser from 'cookie-parser';
 
-dotenv.config(); // Load environment variables from .env file
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
-app.use(express.json());
 
-// Middleware
+// Middleware setup
+app.use(express.json()); // For parsing JSON bodies
+app.use(express.urlencoded({ extended: true })); // For parsing URL-encoded bodies
+app.use(cookieParser()); // To parse cookies
+
+// CORS setup for frontend communication
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
+  origin: 'http://localhost:5173', // Adjust the URL as per your frontend URL
+  credentials: true, // Allow cookies to be sent with requests
 }));
 
-const mongoURI = process.env.MONGO_URI; // Get the MongoDB URI from environment variables
-const port = process.env.PORT || 4300; // Set port from environment variable or default to 4300
+// MongoDB connection setup
+const mongoURI = process.env.MONGO_URI; // Get MongoDB URI from environment variable
+const port = process.env.PORT || 4300; // Set server port, default is 4300
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -65,6 +33,7 @@ mongoose.connect(mongoURI, {
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('Error connecting to MongoDB:', err));
 
+// Default route for testing
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -72,6 +41,7 @@ app.get('/', (req, res) => {
 // API routes
 app.use('/api', apiRouter);
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
