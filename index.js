@@ -18,11 +18,11 @@ app.use(cookieParser()); // To parse cookies
 
 // CORS setup for frontend communication
 app.use(cors({
-  //https://deals-dray-client.vercel.app/
-  origin: 'http://localhost:5173',
+  //
+  origin: 'https://deals-dray-client.vercel.app/',
   credentials: true, // Allow cookies to be sent with requests
 }));
-//
+//http://localhost:5173
 // MongoDB connection setup
 const mongoURI = process.env.MONGO_URI; // Get MongoDB URI from environment variable
 const port = process.env.PORT || 4300; // Set server port, default is 4300
