@@ -19,7 +19,7 @@ app.use(cookieParser()); // To parse cookies
 // CORS setup for frontend communication
 app.use(cors({
   //
-  origin: 'https://deals-dray-client.vercel.app/',
+  origin: 'https://deals-dray-client.vercel.app',
   credentials: true, // Allow cookies to be sent with requests
 }));
 //http://localhost:5173
