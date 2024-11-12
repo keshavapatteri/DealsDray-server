@@ -19,10 +19,10 @@ app.use(cookieParser()); // To parse cookies
 // CORS setup for frontend communication
 app.use(cors({
   
-  origin: 'https://dealsdray-client.onrender.com', // Adjust the URL as per your frontend URL
+  origin: 'https://deals-dray-clients-3kc3g1as2-keshavapatteris-projects.vercel.app',
   credentials: true, // Allow cookies to be sent with requests
 }));
-//http://localhost:5173
+//http://localhost:5174
 // MongoDB connection setup
 const mongoURI = process.env.MONGO_URI; // Get MongoDB URI from environment variable
 const port = process.env.PORT || 4300; // Set server port, default is 4300
